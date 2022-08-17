@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Check</title>
+  </head>
+  <body>
+    <button onclick="postInventory()">Post inventory</button>
+    <button onclick="postAction()">Post action</button>
+    <button onclick="getAllInventory()">Get all inventory</button>
+    <button onclick="getStoreById()">Get store by ID</button>
+
+    <script>
+      postInventory = () => {
+        fetch("http://127.0.0.1:8000/inventory/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            product_name: "Балон",
+            del_quantity: 150,
+            del_price: "2000.000",
+            del_currency: "USD",
+            remained: 102,
+            percent: "15.000",
+            deliver: 1,
+          }),
+        });
+      };
+
+      postAction = () => {
+        fetch("http://127.0.0.1:8000/action/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            store_name: 'Magazin',
+            product_name: 'Shina',
+            del_currency: 'TJS',
+            quantity: 10,
+            price: "123.000",
+          }),
+        });
+      };
+
+      getAllInventory = () => {
+        fetch("http://127.0.0.1:8000/inventory/all")
+        .then(response => response.json())
+	      .then(data => console.log(data))
+      }
+
+      getStoreById = () => {
+        fetch("http://127.0.0.1:8000/store/1", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => response.json())
+	      .then(data => console.log(data))
+      }
+    </script>
+  </body>
+</html>
